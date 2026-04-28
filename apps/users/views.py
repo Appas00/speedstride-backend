@@ -8,13 +8,13 @@ from .serializers import RegisterSerializer, UserSerializer
 @api_view(['POST'])
 def register_user(request):
     serializer = RegisterSerializer(data=request.data)
-    
+
     if serializer.is_valid():
         serializer.save()
         return Response({
             "message": "User registered successfully"
         })
-    
+
     return Response(serializer.errors, status=400)
 
 
@@ -26,7 +26,7 @@ def get_users(request):
     return Response(serializer.data)
 
 
-# ✅ FORCE CREATE ADMIN (IMPORTANT FOR RENDER)
+# ✅ CREATE ADMIN (FOR RENDER DEPLOY)
 @api_view(['GET'])
 def create_admin(request):
     if not User.objects.filter(username='appas').exists():
@@ -38,7 +38,7 @@ def create_admin(request):
         return Response({
             "message": "Admin created successfully"
         })
-    
+
     return Response({
         "message": "Admin already exists"
     })
