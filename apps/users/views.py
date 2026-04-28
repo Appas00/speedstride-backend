@@ -26,7 +26,7 @@ def get_users(request):
     return Response(serializer.data)
 
 
-# ✅ CREATE ADMIN (FOR RENDER DEPLOY)
+# ✅ CREATE ADMIN (FOR RENDER)
 @api_view(['GET'])
 def create_admin(request):
     if not User.objects.filter(username='appas').exists():
@@ -42,3 +42,20 @@ def create_admin(request):
     return Response({
         "message": "Admin already exists"
     })
+
+
+# ✅ RESET ADMIN PASSWORD (FIX LOGIN ISSUE)
+@api_view(['GET'])
+def reset_admin_password(request):
+    try:
+        user = User.objects.get(username='appas')
+        user.set_password('Appas@01')   # ✅ reset password
+        user.save()
+
+        return Response({
+            "message": "Password reset successful"
+        })
+    except User.DoesNotExist:
+        return Response({
+            "error": "Admin not found"
+        }, status=404)
