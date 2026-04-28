@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #0f172a; color: white; padding: 20px; text-align: center; }
+        .order-details { background: #f8f7f4; padding: 20px; margin: 20px 0; }
+        .item { border-bottom: 1px solid #ddd; padding: 10px 0; }
+        .total { font-size: 1.2em; font-weight: bold; text-align: right; }
+        .footer { text-align: center; padding: 20px; color: #666; }
+        .status { color: #b8973a; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Order Confirmed!</h1>
+            <p>Thank you for shopping with SpeedStride</p>
+        </div>
+        
+        <div class="order-details">
+            <h3>Order Details</h3>
+            <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+            <p><strong>Order Date:</strong> {{ order.order_date|date:"F j, Y" }}</p>
+            <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+            <p><strong>Status:</strong> <span class="status">{{ order.status }}</span></p>
+        </div>
+        
+        <div class="order-details">
+            <h3>Items Ordered</h3>
+            {% for item in items %}
+            <div class="item">
+                <p><strong>{{ item.name }}</strong> × {{ item.quantity }}</p>
+                <p>Size: {{ item.selectedSize }} | Price: ₹{{ item.price|floatformat:0 }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="order-details">
+            <h3>Delivery Address</h3>
+            <p>{{ order.full_name }}<br>
+            {{ order.address }}<br>
+            {{ order.city }} - {{ order.pincode }}<br>
+            Phone: {{ order.phone }}</p>
+        </div>
+        
+        <div class="order-details">
+            <h3>Payment Summary</h3>
+            <p>Subtotal: ₹{{ order.subtotal|floatformat:0 }}</p>
+            <p>Shipping: ₹{{ order.shipping|floatformat:0 }}</p>
+            <p>Tax (8%): ₹{{ order.tax|floatformat:0 }}</p>
+            <div class="total">Total: ₹{{ order.total|floatformat:0 }}</div>
+        </div>
+        
+        <div class="footer">
+            <p>You will pay cash on delivery.</p>
+            <p>For any queries, contact: support@speedstride.com | +91 12345 67890</p>
+            <p>© 2024 SpeedStride. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

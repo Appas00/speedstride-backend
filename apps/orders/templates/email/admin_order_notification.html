@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; }
+        .header { background: #0f172a; color: white; padding: 15px; text-align: center; }
+        .order-info { background: #f8f7f4; padding: 15px; margin: 15px 0; }
+        .status-alert { background: #b8973a; color: white; padding: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 New Order Received!</h1>
+            <p>A new order has been placed on SpeedStride</p>
+        </div>
+        
+        <div class="status-alert">
+            <h2>⚠️ ACTION REQUIRED</h2>
+            <p>Please process this order as soon as possible.</p>
+        </div>
+        
+        <div class="order-info">
+            <h3>Order ID: {{ order.order_id }}</h3>
+            <p><strong>Customer:</strong> {{ order.full_name }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+            <p><strong>Delivery Address:</strong> {{ order.address }}, {{ order.city }} - {{ order.pincode }}</p>
+        </div>
+        
+        <div class="order-info">
+            <h3>Order Summary</h3>
+            <p>Total Items: {{ items|length }}</p>
+            <p>Total Amount: ₹{{ order.total|floatformat:0 }}</p>
+            <p>Payment Method: {{ order.payment_method }}</p>
+        </div>
+        
+        <div class="order-info">
+            <h3>Items</h3>
+            {% for item in items %}
+            <p>• {{ item.name }} (Size: {{ item.selectedSize }}) × {{ item.quantity }} = ₹{{ item.price|floatformat:0 }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
