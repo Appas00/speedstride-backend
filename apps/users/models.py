@@ -1,10 +1,11 @@
 from django.db import models
+
 class Product(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=255)
     price = models.FloatField()
     description = models.TextField()
 
-    # ✅ MUST be this
+    # ✅ CHANGE HERE
     image = models.URLField()
 
     color = models.CharField(max_length=50)
